@@ -1,0 +1,10 @@
+.startIcon {
+  display: flex;
+  align-items: center;
+  color: #667085;
+  margin-right: 12px;
+}
+
+.visibilityButton.visibilityButton {
+  color: #667085;
+}

@@ -1,0 +1,15 @@
+.item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.icon.icon {
+  color: #ff8a00;
+}
+
+.text.text {
+  margin-left: 12px;
+  font-weight: 700;
+  font-size: 15px;
+}

@@ -1,26 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import {
-  AppBar,
   Box,
   Button,
-  Container,
   Paper,
-  TextField,
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link as RouterLink } from "react-router-dom";
 import ArrowBackRoundedIcon from "@material-ui/icons/ArrowBack";
+import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import EmailOutlinedIcon from "@material-ui/icons/EmailOutlined";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import LanguageMenu from "./LanguageMenu";
-import type { LanguageCode, Locale } from "./locales";
-
-interface PageProps {
-  t: Locale;
-  language: LanguageCode;
-  onLanguageChange: (language: LanguageCode) => void;
-}
+import AppTextField from "./components/AppTextField";
+import PageHeader from "./components/PageHeader";
+import type { PageProps } from "./types";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -101,6 +94,36 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "uppercase",
     boxShadow: "0 14px 30px rgba(255,138,0,0.32)",
   },
+  successAlert: {
+    borderRadius: 20,
+    border: "1px solid rgba(18,183,106,0.24)",
+    backgroundColor: "rgba(18,183,106,0.08)",
+    padding: theme.spacing(2.5),
+    display: "flex",
+    alignItems: "flex-start",
+    gap: theme.spacing(1.5),
+    marginBottom: theme.spacing(3),
+  },
+  successIcon: {
+    color: "#12b76a",
+    fontSize: 28,
+    marginTop: 2,
+  },
+  successTitle: {
+    color: "#111827",
+    fontWeight: 800,
+    fontSize: 16,
+    marginBottom: theme.spacing(0.75),
+  },
+  successText: {
+    color: theme.palette.text.secondary,
+    fontSize: 15,
+    lineHeight: 1.6,
+  },
+  successEmail: {
+    color: "#111827",
+    fontWeight: 800,
+  },
   backLink: {
     display: "flex",
     flexDirection: "row",
@@ -124,44 +147,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const navLinkStyle: React.CSSProperties = {
-  color: "#111827",
-  fontWeight: 500,
-  textTransform: "uppercase",
-  marginLeft: 24,
-  textDecoration: "none",
-  fontSize: 15,
-};
-
-const Header: React.FC<PageProps> = ({ t, language, onLanguageChange }) => (
-  <AppBar position="static" elevation={0} style={{ backgroundColor: "transparent", boxShadow: "none", borderBottom: "1px solid rgba(17,24,39,0.08)" }}>
-    <Container maxWidth="lg" style={{ display: "flex", alignItems: "center", minHeight: 72 }}>
-      <RouterLink to="/login" style={{ fontWeight: 900, fontSize: 28, color: "#ff8a00", letterSpacing: "-0.06em", textDecoration: "none" }}>
-        voopty
-      </RouterLink>
-      <Box style={{ flex: 1 }} />
-      <RouterLink to="/register" style={navLinkStyle}>{t.nav.join}</RouterLink>
-      <RouterLink to="/login" style={navLinkStyle}>{t.nav.login}</RouterLink>
-      <LanguageMenu language={language} onLanguageChange={onLanguageChange} style={navLinkStyle} />
-    </Container>
-  </AppBar>
-);
-
 export default function ForgotPasswordPage({ t, language, onLanguageChange }: PageProps) {
   const classes = useStyles();
   const copy = t.forgotPassword;
+  const [isSent, setIsSent] = useState(false);
+  const [submittedEmail, setSubmittedEmail] = useState("");
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
-    const email = form.get("email");
+    const email = String(form.get("email") || "");
 
     console.log({ email });
+    setSubmittedEmail(email);
+    setIsSent(true);
   };
 
   return (
     <Box className={classes.root}>
-      <Header t={t} language={language} onLanguageChange={onLanguageChange} />
+      <PageHeader t={t} language={language} onLanguageChange={onLanguageChange} />
 
       <Box className={classes.main}>
         <Paper elevation={0} className={classes.paper}>
@@ -177,42 +181,66 @@ export default function ForgotPasswordPage({ t, language, onLanguageChange }: Pa
             {copy.description}
           </Typography>
 
-          <Box component="form" onSubmit={handleSubmit} className={classes.form}>
-            <TextField
-              name="email"
-              label={copy.email.label}
-              type="email"
-              placeholder={copy.email.placeholder}
-              fullWidth
-              required
-              variant="outlined"
-              className={classes.textField}
-              InputProps={{
-                startAdornment: (
-                  <Box style={{ marginRight: 12, color: "#667085", display: "flex" }}>
-                    <EmailOutlinedIcon />
-                  </Box>
-                ),
-              }}
-            />
+          {isSent ? (
+            <>
+              <Box className={classes.successAlert}>
+                <CheckCircleOutlineIcon className={classes.successIcon} />
+                <Box>
+                  <Typography className={classes.successTitle}>
+                    {copy.successTitle}
+                  </Typography>
+                  <Typography className={classes.successText}>
+                    {copy.successMessage}{" "}
+                    <span className={classes.successEmail}>
+                      {submittedEmail}
+                    </span>
+                  </Typography>
+                </Box>
+              </Box>
 
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              fullWidth
-              className={classes.submitButton}
-            >
-              {copy.submit}
-            </Button>
-          </Box>
+              <Button
+                component={RouterLink}
+                to="/login"
+                variant="contained"
+                color="primary"
+                fullWidth
+                className={classes.submitButton}
+              >
+                {copy.backToLogin}
+              </Button>
+            </>
+          ) : (
+            <>
+              <Box component="form" onSubmit={handleSubmit} className={classes.form}>
+                <AppTextField
+                  name="email"
+                  label={copy.email.label}
+                  type="email"
+                  placeholder={copy.email.placeholder}
+                  required
+                  className={classes.textField}
+                  startIcon={<EmailOutlinedIcon />}
+                />
 
-          <Box className={classes.backLink}>
-            <ArrowBackRoundedIcon className={classes.backIcon} />
-            <RouterLink to="/login" className={classes.backLinkText}>
-              {copy.backToLogin}
-            </RouterLink>
-          </Box>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  className={classes.submitButton}
+                >
+                  {copy.submit}
+                </Button>
+              </Box>
+
+              <Box className={classes.backLink}>
+                <ArrowBackRoundedIcon className={classes.backIcon} />
+                <RouterLink to="/login" className={classes.backLinkText}>
+                  {copy.backToLogin}
+                </RouterLink>
+              </Box>
+            </>
+          )}
         </Paper>
       </Box>
     </Box>

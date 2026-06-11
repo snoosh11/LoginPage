@@ -1,6 +1,6 @@
-import uk from "./uk";
+import type { Locale } from "../types";
 
-const en: typeof uk = {
+const en: Locale = {
   nav: {
     join: "Join",
     login: "Login",
@@ -98,7 +98,48 @@ const en: typeof uk = {
       "Enter the e-mail linked to your account. We will send a password reset link.",
     email: { label: "E-mail", placeholder: "name@voopty.com" },
     submit: "Reset password",
+    successTitle: "Email sent",
+    successMessage: "Password reset instructions have been sent to",
     backToLogin: "Back to login",
+  },
+  termsAndConditions: {
+    eyebrow: "Terms of use",
+    title:
+      "Agreement for consulting services in informatization and data processing services",
+    intro:
+      "An individual or legal entity using the Voopty service, hereinafter referred to as the Customer, and the service provider, hereinafter referred to as the Contractor, together referred to as the Parties, have entered into this Agreement as follows.",
+    sections: [
+      {
+        title: "1. Subject of the agreement",
+        items: [
+          "The Contractor undertakes to provide consulting services in informatization and/or data processing services, and the Customer undertakes to accept and pay for the services under the procedure and terms established by this Agreement.",
+          "The services include consulting on software types and configuration, analysis of user information needs, preparation of data for collection, data recovery, optimized data collection, and data placement on the Internet.",
+        ],
+      },
+      {
+        title: "2. Payment procedure",
+        items: [
+          "The price of the Agreement consists of all payments made by the Customer to the Contractor during the term of this Agreement.",
+          "The Customer pays for the Services within 10 calendar days after receiving the relevant invoice or acceptance certificate, unless otherwise agreed by the Parties.",
+          "All settlements under this Agreement are made in the national currency of Ukraine - hryvnia.",
+        ],
+      },
+      {
+        title: "3. Service delivery details",
+        items: [
+          "The Contractor provides the Services personally. Third parties may be involved in the performance of the Services only with the Customer's prior approval.",
+          "The Contractor ensures an appropriate level of confidentiality for data received during service delivery and uses it exclusively to perform this Agreement.",
+        ],
+      },
+      {
+        title: "4. Rights and obligations of the parties",
+        items: [
+          "The Customer undertakes to provide accurate information required for proper service delivery.",
+          "The Contractor has the right to receive information and materials necessary for the performance of the Services and to notify the Customer about circumstances affecting timing or quality.",
+        ],
+      },
+    ],
+    backToRegister: "Back to registration",
   },
 };
 

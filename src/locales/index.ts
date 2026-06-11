@@ -7,6 +7,3 @@ export const locales = {
   EN: en,
   RU: ru,
 };
-
-export type LanguageCode = keyof typeof locales;
-export type Locale = typeof uk;

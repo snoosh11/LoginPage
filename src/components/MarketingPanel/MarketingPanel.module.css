@@ -1,0 +1,86 @@
+.panel {
+  padding: 44px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #0f172a 0%, #111827 54%, #ff7a00 145%);
+  color: #ffffff;
+  box-shadow: 0 28px 80px rgba(17, 24, 39, 0.22);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 720px;
+}
+
+.panel.panel {
+  padding: 44px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #0f172a 0%, #111827 54%, #ff7a00 145%);
+  color: #ffffff;
+  box-shadow: 0 28px 80px rgba(17, 24, 39, 0.22);
+}
+
+.decor {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  border-radius: 5%;
+  right: -90px;
+  top: 70px;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.subtitle.subtitle {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffb74d;
+  margin-bottom: 24px;
+}
+
+.title.title {
+  font-weight: 900;
+  max-width: 520px;
+}
+
+.loginTitle.loginTitle {
+  font-size: 42px;
+  line-height: 1.05;
+  margin-bottom: 24px;
+}
+
+.registerTitle.registerTitle {
+  font-size: 44px;
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+  max-width: 480px;
+}
+
+.description.description {
+  max-width: 500px;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.loginDescription.loginDescription {
+  font-size: 17px;
+  line-height: 1.85;
+}
+
+.registerDescription.registerDescription {
+  margin-top: 24px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 18px;
+  line-height: 1.7;
+  max-width: 470px;
+}
+
+.features {
+  margin-top: 40px;
+}
+
+.chips {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}

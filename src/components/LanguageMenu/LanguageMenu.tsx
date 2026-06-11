@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Menu, MenuItem } from "@material-ui/core";
-import type { LanguageCode } from "./locales";
+import type { LanguageCode, LanguageMenuProps } from "../../types";
+import styles from "./LanguageMenu.module.css";
 
 const languages = [
   { value: "UA" as const, label: "Українська" },
@@ -8,15 +9,10 @@ const languages = [
   { value: "RU" as const, label: "Русский" },
 ];
 
-interface LanguageMenuProps {
-  language: LanguageCode;
-  onLanguageChange: (language: LanguageCode) => void;
-  style?: React.CSSProperties;
-}
-
 export default function LanguageMenu({
   language,
   onLanguageChange,
+  className,
   style,
 }: LanguageMenuProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -40,11 +36,8 @@ export default function LanguageMenu({
         aria-controls="language-menu"
         aria-haspopup="true"
         onClick={handleOpen}
-        style={{
-          minWidth: "auto",
-          padding: 0,
-          ...style,
-        }}
+        className={[styles.button, className].filter(Boolean).join(" ")}
+        style={style}
       >
         {language}
       </Button>

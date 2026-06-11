@@ -5,7 +5,9 @@ import theme from "./theme";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
 import ForgotPasswordPage from "./ForgotPasswordPage";
-import { locales, LanguageCode } from "./locales";
+import TermsAndConditionsPage from "./TermsAndConditionsPage";
+import { locales } from "./locales";
+import type { LanguageCode } from "./types";
 
 export default function App() {
   const [language, setLanguage] = useState<LanguageCode>("UA");
@@ -30,6 +32,16 @@ export default function App() {
             path="/register"
             render={() => (
               <RegisterPage
+                t={t}
+                language={language}
+                onLanguageChange={setLanguage}
+              />
+            )}
+          />
+          <Route
+            path="/terms-and-conditions"
+            render={() => (
+              <TermsAndConditionsPage
                 t={t}
                 language={language}
                 onLanguageChange={setLanguage}
